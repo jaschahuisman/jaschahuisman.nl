@@ -7,6 +7,9 @@ module.exports = {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'bundle.js',
 	},
+	devServer: {
+		historyApiFallback: true,
+	},
 	resolve: {
 		extensions: ['.js', '.jsx', '.ts', '.tsx'],
 		alias: { Components: path.resolve(__dirname, '/components') },
@@ -43,11 +46,24 @@ module.exports = {
 					},
 				],
 			},
+			{
+				test: /\.(png|jp(e*)g|svg)$/,
+				use: [
+					{
+						loader: 'url-loader',
+						options: {
+							limit: 8000,
+							name: 'images/[hash]-[name].[ext]',
+						},
+					},
+				],
+			},
 		],
 	},
 	plugins: [
 		new HtmlWebPackPlugin({
 			template: './public/index.html',
+			favicon: './public/favicon.ico',
 		}),
 	],
 };
