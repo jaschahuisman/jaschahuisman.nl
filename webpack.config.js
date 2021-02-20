@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const {
+	default: InterpolateHtmlPlugin,
+} = require('@k88/interpolate-html-plugin');
 
 module.exports = {
 	entry: path.join(__dirname, '/src/index.tsx'),
@@ -47,7 +50,7 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.(png|jp(e*)g|svg)$/,
+				test: /\.(png|jp(e*)g|svg|ico)$/,
 				use: [
 					{
 						loader: 'url-loader',
@@ -64,6 +67,9 @@ module.exports = {
 		new HtmlWebPackPlugin({
 			template: './public/index.html',
 			favicon: './public/favicon.ico',
+		}),
+		new InterpolateHtmlPlugin({
+			PUBLIC_URL: '/',
 		}),
 	],
 };
